@@ -2,11 +2,11 @@
 * 说    明: 
 * CLR版 本：4.0.30319.42000
 * 命名空间：OwinDemo.Models
-* 类 名 称：ScreenModel
-* 创建日期：2019/12/17 15:41:03
+* 类 名 称：PCModel
+* 创建日期：2019/12/17 16:34:02
 * 作    者：ZZR
 * 版 本 号：4.0.30319.42000
-* 文 件 名：ScreenModel
+* 文 件 名：PCModel
 * 修改记录：
 *  R1：
 *	  修改作者：
@@ -23,10 +23,10 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 namespace OwinDemo.Models
 {
-    [Cmd("Screen")]
-    public class ScreenModel:ModelBase
+    [Cmd("PC")]
+    public class PCModel:ModelBase
     {
-        public ScreenModel()
+        public PCModel()
         {
         }
         #region 构造函数

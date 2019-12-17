@@ -13,6 +13,7 @@
 *     修改日期：
 *     修改理由：
 ***********************************************/
+using OwinDemo.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,11 +23,14 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 namespace OwinDemo.Models
 {
+    [Cmd("Music")]
     public class MusicModel:ModelBase
     {
-        public string Name { get; set; }
         public bool IsPlaying { get; set; }
         public int Volume { get; set; }
+        public MusicModel()
+        {
+        }
         #region 构造函数
         #endregion
         #region Variables

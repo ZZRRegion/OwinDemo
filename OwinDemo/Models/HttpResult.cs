@@ -22,12 +22,13 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 namespace OwinDemo.Models
 {
-    public class HttpResult<T> where T: ModelBase
+    public class HttpResult<T> where T: ModelBase,new()
     {
         public bool State { get; set; } = true;
-        public string Reason { get; set; } = "未知原因";
+        public string Reason { get; set; }
+        
         public DateTime DateTime { get; set; } = DateTime.Now;
-        public T Value { get; set; }
+        public T Value { get; set; } = new T();
         #region 构造函数
         #endregion
         #region Variables

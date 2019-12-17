@@ -40,6 +40,7 @@ namespace OwinDemo
         {
             app.Use<Middleware.InspectionMiddleware>(this.Main);
             app.Use<Middleware.LogMiddleware>(this.Main);
+            app.Use<Middleware.PCMiddleware>(this.Main);
         }
         #region 构造函数
         #endregion

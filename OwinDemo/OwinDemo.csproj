@@ -69,12 +69,16 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Attributes\ApiAttribute.cs" />
+    <Compile Include="Attributes\CmdAttribute.cs" />
     <Compile Include="Middleware\InspectionMiddleware.cs" />
     <Compile Include="Middleware\LogMiddleware.cs" />
     <Compile Include="Middleware\MiddlewareBase.cs" />
+    <Compile Include="Middleware\PCMiddleware.cs" />
     <Compile Include="Models\HttpResult.cs" />
     <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Models\MusicModel.cs" />
+    <Compile Include="Models\PCConfigModel.cs" />
+    <Compile Include="Models\PCModel.cs" />
     <Compile Include="Models\ScreenModel.cs" />
     <Compile Include="RApp.cs" />
     <Compile Include="RLog.cs" />

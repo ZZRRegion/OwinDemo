@@ -34,6 +34,7 @@ namespace OwinDemo
         {
             System.Runtime.Serialization.Json.DataContractJsonSerializerSettings settings = new System.Runtime.Serialization.Json.DataContractJsonSerializerSettings();
             settings.DateTimeFormat = new System.Runtime.Serialization.DateTimeFormat("yyyy-MM-dd HH:mm:ss");
+            settings.SerializeReadOnlyTypes = true;
             System.Runtime.Serialization.Json.DataContractJsonSerializer serializer = new System.Runtime.Serialization.Json.DataContractJsonSerializer(@this.GetType(), settings);
             MemoryStream ms = new MemoryStream();
             serializer.WriteObject(ms, @this);

@@ -13,9 +13,11 @@
 *     修改日期：
 *     修改理由：
 ***********************************************/
+using OwinDemo.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,6 +26,15 @@ namespace OwinDemo.Models
 {
     public abstract class ModelBase
     {
+        public virtual string Type { get; set; }
+        public ModelBase()
+        {
+            CmdAttribute cmd = CustomAttributeExtensions.GetCustomAttribute<CmdAttribute>(this.GetType());
+            if(cmd != null)
+            {
+                this.Type = cmd.Type;
+            }
+        }
         #region 构造函数
         #endregion
         #region Variables
