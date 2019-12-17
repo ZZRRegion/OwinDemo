@@ -1,0 +1,22 @@
+﻿<Window x:Class="OwinDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OwinDemo"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded"
+        WindowState="Maximized"
+        Initialized="Window_Initialized"
+        WindowStyle="None"
+        Title="小程序" Height="450" Width="800">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Images/3.jpg"/>
+        </Grid.Background>
+        <ListView Opacity="0.6" ItemsSource="{Binding Records}">
+            
+        </ListView>
+    </Grid>
+</Window>
