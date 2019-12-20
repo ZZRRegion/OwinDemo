@@ -18,10 +18,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Owin;
 using OwinDemo.Attributes;
+using System.Windows.Resources;
 
 namespace OwinDemo.Middleware
 {
@@ -33,6 +34,12 @@ namespace OwinDemo.Middleware
         public void Test()
         {
             this.ActionContent("Test");
+        }
+        public void BackImage()
+        {
+            StreamResourceInfo sri = Application.GetResourceStream(new Uri("/Images/3.jpg", UriKind.Relative));
+            if(sri != null)
+                this.ActionStreamResource(sri);
         }
     }
 }

@@ -25,6 +25,7 @@ using System.Windows.Controls;
 using OwinDemo.Attributes;
 using System.IO;
 using System.Web;
+using System.Windows.Resources;
 
 namespace OwinDemo.Middleware
 {
@@ -130,6 +131,17 @@ namespace OwinDemo.Middleware
             }
             return this.Next.Invoke(context);
         }
+        protected void ActionStreamResource(StreamResourceInfo sri)
+        {
+            this.context.Response.ContentType = sri.ContentType;
+            byte[] bys = new byte[1024];
+            int len = sri.Stream.Read(bys, 0, bys.Length);
+            while(len > 0)
+            {
+                this.context.Response.Write(bys, 0, len);
+                len = sri.Stream.Read(bys, 0, bys.Length);
+            }
+        }
         protected void ActionFile(string fileName)
         {
             if (File.Exists(fileName))
@@ -149,7 +161,7 @@ namespace OwinDemo.Middleware
             }
             else
             {
-                this.context.Response.ContentType = "text/plain";
+                this.context.Response.ContentType = "text/plain;charset=utf-8";
                 this.context.Response.Write("文件不存在！");
             }
         }
