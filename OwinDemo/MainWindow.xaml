@@ -7,15 +7,23 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Loaded="Window_Loaded"
-        WindowState="Maximized"
+        WindowState="Normal"
+        ResizeMode="NoResize"
         Initialized="Window_Initialized"
         WindowStyle="None"
         Title="小程序" Height="450" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         <Grid.Background>
             <ImageBrush ImageSource="/Images/3.jpg"/>
         </Grid.Background>
-        <ListView Opacity="0.6" ItemsSource="{Binding Records}">
+        <DockPanel Height="50">
+            <Button Width="50" HorizontalAlignment="Right" x:Name="btnClose" Click="BtnClose_Click" Content="X"/>
+        </DockPanel>
+        <ListView Grid.Row="1" Opacity="0.6" ItemsSource="{Binding Records}">
             
         </ListView>
     </Grid>

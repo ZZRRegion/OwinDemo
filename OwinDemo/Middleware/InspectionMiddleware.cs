@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Mime;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -35,24 +36,24 @@ namespace OwinDemo.Middleware
         {
 
         }
-        [Get("musicPlay")]
+        [Method("musicPlay", MethodType.Get)]
         public void MusicPlay()
         {
             HttpResult<MusicModel> httpResult = new HttpResult<MusicModel>();
             this.ActionJson(httpResult);
         }
-        [Get("musicStop")]
+        [Method("musicStop")]
         public void MusicStop()
         {
             this.ActionJson(new HttpResult<MusicModel>());
         }
-        [Get("screenPlay")]
+        [Method("screenPlay")]
         public void ScreenPlay()
         {
             this.main.Dispaly(true);
             this.ActionJson(new HttpResult<ScreenModel>());
         }
-        [Get("screenStop")]
+        [Method("screenStop")]
         public void ScreenStop()
         {
             this.main.Dispaly(false);

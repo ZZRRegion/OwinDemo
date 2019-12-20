@@ -70,6 +70,8 @@
     </ApplicationDefinition>
     <Compile Include="Attributes\ApiAttribute.cs" />
     <Compile Include="Attributes\CmdAttribute.cs" />
+    <Compile Include="Attributes\RouteAttribute.cs" />
+    <Compile Include="Middleware\HomeMiddleware.cs" />
     <Compile Include="Middleware\InspectionMiddleware.cs" />
     <Compile Include="Middleware\LogMiddleware.cs" />
     <Compile Include="Middleware\MiddlewareBase.cs" />

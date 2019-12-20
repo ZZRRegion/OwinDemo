@@ -22,26 +22,20 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 namespace OwinDemo.Attributes
 {
-    public class ApiAttribute : Attribute
+    public enum MethodType
     {
-        public string Api { get; set; }
-        public ApiAttribute(string api)
+        Get,
+        Post,
+    }
+    public class MethodAttribute : Attribute
+    {
+        public string Api { get; private set; }
+        public MethodType MethodType { get; private set; }
+
+        public MethodAttribute(string api, MethodType methodType = MethodType.Get)
         {
             this.Api = api;
-        }
-    }
-    public class GetAttribute : ApiAttribute
-    {
-        public GetAttribute(string api)
-            :base(api)
-        {
-        }
-    }
-    public class PostAttribute : ApiAttribute
-    {
-        public PostAttribute(string api)
-            :base(api)
-        {
+            this.MethodType = methodType;
         }
     }
 }

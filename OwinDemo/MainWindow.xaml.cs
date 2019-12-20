@@ -30,6 +30,15 @@ namespace OwinDemo
             this.app.Run();
             this.DataContext = this;
         }
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        {
+            try
+            {
+                this.DragMove();
+            }
+            catch { }
+            base.OnMouseLeftButtonDown(e);
+        }
         public void Dispaly(bool display)
         {
             Action action = () => {
@@ -47,7 +56,7 @@ namespace OwinDemo
         public void AddRecord(string record)
         {
             Action action = () => {
-                this.Records.Add(record);
+                this.Records.Insert(0, record);
             };
             this.Dispatcher.BeginInvoke(action);
         }
@@ -58,7 +67,12 @@ namespace OwinDemo
 
         private void Window_Initialized(object sender, EventArgs e)
         {
-            this.Visibility = Visibility.Hidden;
+            //this.Visibility = Visibility.Hidden;
+        }
+
+        private void BtnClose_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

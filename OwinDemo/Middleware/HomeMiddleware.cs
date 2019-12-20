@@ -2,11 +2,11 @@
 * 说    明: 
 * CLR版 本：4.0.30319.42000
 * 命名空间：OwinDemo.Middleware
-* 类 名 称：LogMiddleware
-* 创建日期：2019/12/17 15:03:57
+* 类 名 称：HomeMiddleware
+* 创建日期：2019/12/20 17:01:11
 * 作    者：ZZR
 * 版 本 号：4.0.30319.42000
-* 文 件 名：LogMiddleware
+* 文 件 名：HomeMiddleware
 * 修改记录：
 *  R1：
 *	  修改作者：
@@ -25,20 +25,14 @@ using OwinDemo.Attributes;
 
 namespace OwinDemo.Middleware
 {
-    public class LogMiddleware : MiddlewareBase
+    public class HomeMiddleware : MiddlewareBase
     {
-        public LogMiddleware(OwinMiddleware next, MainWindow main) : base(next, main)
+        public HomeMiddleware(OwinMiddleware next, MainWindow main) : base(next, main)
         {
         }
-        [Method("log")]
-        public void Log()
+        public void Test()
         {
-            this.ActionFile(RLog.LogFile);
-        }
-        [Method("happy")]
-        public void Redirect()
-        {
-            this.context.Response.Redirect("http://www.ruijie.com.cn/");
+            this.ActionContent("Test");
         }
     }
 }

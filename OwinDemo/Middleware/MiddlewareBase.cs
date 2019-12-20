@@ -28,36 +28,92 @@ using System.Web;
 
 namespace OwinDemo.Middleware
 {
-    public class MiddlewareBase : OwinMiddleware
+    public abstract class MiddlewareBase : OwinMiddleware
     {
         protected readonly MainWindow main;
         protected IOwinContext context;
+        protected string Route;
+        public Dictionary<string, MethodInfo> GetDictMethod { get; set; } = new Dictionary<string, MethodInfo>();
+        public Dictionary<string, MethodInfo> PostDictMethod { get; set; } = new Dictionary<string, MethodInfo>();
+        public virtual void Index()
+        {
+            this.ActionContent($"{this.Route}/Index");
+        }
 
         public MiddlewareBase(OwinMiddleware next, MainWindow main)
             :base(next)
         {
+            RouteAttribute routeAttribute = this.GetType().GetCustomAttribute<RouteAttribute>();
+            if (routeAttribute != null)
+            {
+                this.Route = routeAttribute.Route;
+            }
+            else
+            {
+                this.Route = this.GetType().Name.ToLower().Replace("middleware", "");
+            }
+            this.Route = this.Route.ToLower();
+            MethodInfo[] methods = this.GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance);
+            foreach (MethodInfo mi in methods)
+            {
+                MethodAttribute method = mi.GetCustomAttribute<MethodAttribute>();
+                if (method == null)
+                {
+                    this.GetDictMethod.Add(mi.Name.ToLower(), mi);
+                }
+                else
+                {
+                    switch (method.MethodType)
+                    {
+                        case MethodType.Get:
+                            this.GetDictMethod.Add(method.Api, mi);
+                            break;
+                        case MethodType.Post:
+                            this.PostDictMethod.Add(method.Api, mi);
+                            break;
+                    }
+                }
+            }
             this.main = main;
         }
         protected virtual bool ToHandle(string url, IOwinContext context)
         {
-            MethodInfo[] methods = this.GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance);
-            foreach(MethodInfo mi in methods)
+            string[] res = url.ToLower().Split('/');
+            if(res.Length == 1)
             {
-                ApiAttribute api = null;
-                switch (context.Request.Method)
+                if(this.Route == url.ToLower())
                 {
-                    case "GET":
-                        api = mi.GetCustomAttribute<GetAttribute>();
-                        break;
-                    case "POST":
-                        api = mi.GetCustomAttribute<PostAttribute>();
-                        break;
-                }
-                if(api != null && api.Api.ToLower() == url.ToLower())
-                {
-                    mi.Invoke(this, null);
+                    this.Index();
                     return true;
                 }
+                else
+                {
+                    return false;
+                }
+            }
+            if(res.Length >= 2)
+            {
+                if(res[0] != this.Route)
+                {
+                    return false;
+                }
+            }
+            switch (context.Request.Method)
+            {
+                case "GET":
+                    if (this.GetDictMethod.ContainsKey(res[1]))
+                    {
+                        this.GetDictMethod[res[1]].Invoke(this, null);
+                        return true;
+                    }
+                    break;
+                case "POST":
+                    if (this.PostDictMethod.ContainsKey(res[1]))
+                    {
+                        this.PostDictMethod[res[1]].Invoke(this, null);
+                        return true;
+                    }
+                    break;
             }
             return false;
         }
@@ -101,6 +157,11 @@ namespace OwinDemo.Middleware
         {
             this.context.Response.ContentType = "application/json;charset=utf-8";
             this.context.Response.Write(sender.ToJson());
+        }
+        protected void ActionContent(string content)
+        {
+            this.context.Response.ContentType = "text/plain;charset=utf-8";
+            this.context.Response.Write(content);
         }
     }
 }

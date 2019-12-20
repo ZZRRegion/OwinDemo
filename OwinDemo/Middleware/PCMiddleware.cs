@@ -35,13 +35,13 @@ namespace OwinDemo.Middleware
         public PCMiddleware(OwinMiddleware next, MainWindow main) : base(next, main)
         {
         }
-        [Get("PC/Logout")]
+        [Method("Logout")]
         public void Logout()
         {
             this.ActionJson(new HttpResult<PCModel>());
             ExitWindowsEx(0, 0);//注销计算机
         }
-        [Post("PC/Config")]
+        [Method("Config", MethodType.Post)]
         public void Config()
         {
             string contentType = this.context.Request.ContentType;

@@ -38,9 +38,15 @@ namespace OwinDemo
         }
         private void Startup(IAppBuilder app)
         {
+            app.Use<Middleware.HomeMiddleware>(this.Main);
             app.Use<Middleware.InspectionMiddleware>(this.Main);
             app.Use<Middleware.LogMiddleware>(this.Main);
             app.Use<Middleware.PCMiddleware>(this.Main);
+            app.Run(context => {
+                context.Response.ContentType = "text/plain;charset=utf-8";
+                context.Response.Write($"未找到路径：{context.Request.Uri}");
+                return Task.FromResult(0);
+            });
         }
         #region 构造函数
         #endregion
